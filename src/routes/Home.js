@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Button from "../components/Button";
 
 const Home = () => {
   const [number, setNumber] = useState(0);
@@ -25,6 +26,7 @@ const Home = () => {
   return (
     <div style={{ height: "100vh", width: "100%" }}>
       <h1>Home</h1>
+      <Button style={{color:"white"}} title="Home page"/>
 
       <div
         style={{
@@ -40,11 +42,12 @@ const Home = () => {
       <button onClick={reset}>reset value</button>
 
       <>
-        {api.map(( item) => 
-           (
-              <li key={item.id}> {item.id} -- {item.title}</li>
-          )
-        )}
+        {api.map((item) => (
+          <li key={item.id}>
+            {" "}
+            {item.id} -- {item.title}
+          </li>
+        ))}
       </>
     </div>
   );
