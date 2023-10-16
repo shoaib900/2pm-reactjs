@@ -1,56 +1,39 @@
-import React, { useEffect, useState } from "react";
-import Button from "../components/Button";
+import React,{useState,useCallback} from 'react'
+import CompA from '../components/CompA'
 
 const Home = () => {
-  const [number, setNumber] = useState(0);
-  const [api, setApi] = useState([]);
+  const [number,setNumber] = useState(0);
+  const [value,setValue] = useState(100);
 
-  const increment = () => {
+  const increment =() => {
     setNumber(number + 1);
-  };
+  }
+
   const decrement = () => {
-    setNumber(number - 1);
-  };
-  const reset = () => {
-    setNumber(0);
-  };
+    setNumber(number -1 )
+  }
+  console.log("parent rendered")
 
-  console.log("api", api);
+  // useCallback( ()=> {},[])
 
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/todos")
-      .then((response) => response.json())
-      .then((json) => setApi(json));
-  }, []);
+  const changeValue = useCallback( () => {
+    setValue(value + 50);
+  } )
+
+  // const changeValue = () => {
+  //   setValue(value + 50);
+  // }
 
   return (
-    <div style={{ height: "100vh", width: "100%" }}>
-      <h1>Home</h1>
-      <Button style={{color:"white"}} title="Home page"/>
+    <div>
+      <button onClick={increment}>increment</button>
+      <p>{number}</p>
+      <button onClick={decrement}>decrement</button>
 
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          justifyContent: "space-around",
-        }}
-      >
-        <button onClick={increment}>increment</button>
-        <p>{number}</p>
-        <button onClick={decrement}>decrement</button>
-      </div>
-      <button onClick={reset}>reset value</button>
-
-      <>
-        {api.map((item) => (
-          <li key={item.id}>
-            {" "}
-            {item.id} -- {item.title}
-          </li>
-        ))}
-      </>
+      <CompA value={value} changeValue={changeValue} />
+      
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
